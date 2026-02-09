@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SPARSHA SANDESHA - MESSAGE BY TOUCH</title>
+<title>SMART ASSISTANCE DEVICE</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -42,11 +42,6 @@
     padding: 15px 10px; /* Tighter padding for mobile */
     color: white;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  }
-
-  header::before {
-    /* Removed complex pattern for cleaner mobile load */
-    content: none;
   }
 
   header img {
@@ -260,7 +255,6 @@ const writeAPI="GE7OG58ETMAV7OT1";
 let lastEntryID=0;
 
 function getAlertMessage(feed){
-  // Swapped field7 and field8 to match the button order in HTML
   if(feed.field7==="1") return "Web Action: Take Medicines";
   if(feed.field8==="1") return "Web Action: Don't Panic";
   
@@ -274,7 +268,6 @@ function getAlertMessage(feed){
   return null;
 }
 
-// Initial load and interval
 setInterval(loadLatestAlerts,3000);
 loadLatestAlerts();
 
@@ -305,7 +298,6 @@ function loadLatestAlerts(){
         const div=document.createElement("div");
         
         let iconHtml;
-        // Check for emergency based on field1 content
         if(feed.field1 && feed.field1.toLowerCase().includes("emergency")){
             div.className="alert emergency";
             iconHtml = '<i class="fas fa-exclamation-triangle"></i> **EMERGENCY!** ';
@@ -317,7 +309,6 @@ function loadLatestAlerts(){
         
         const timestamp=new Date(feed.created_at).toLocaleString();
         
-        // Use an inner span for the main message
         div.innerHTML=`
           <div>${iconHtml} ${alertText}</div>
           <div class="alert-time"><i class="fas fa-clock"></i> ${timestamp}</div>
@@ -353,12 +344,9 @@ function showPopup(msg){
   popup.innerHTML=`<i class="fas fa-bullhorn"></i> ${msg}`;
   popup.style.display="block";
   document.getElementById("alertSound").play().catch(() => console.log('Audio playback blocked.'));
-  // Hide popup after 4 seconds
   setTimeout(()=>popup.style.display="none",4000);
 }
 </script>
 
 </body>
-
 </html>
-
